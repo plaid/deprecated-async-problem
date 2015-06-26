@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+expected="$(printf "FOO\nBAR\nBAZ\n")"
+
+test() {
+  printf "Testing %s... " "$1"
+  if [[ "$(node --harmony "$1" input)" == "$expected" ]] ; then
+    printf "\033[0;32mpassed\033[0m\n"
+  else
+    printf "\033[0;31mfailed\033[0m\n"
+  fi
+}
+
+test synchronous.js
+test callbacks.js
+test async.js
+test promises.js
+test coroutines-co.js
+test coroutines-bluebird.js
+test futures.js

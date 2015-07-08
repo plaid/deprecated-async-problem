@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "async": "1.2.x",
+    "bluebird": "^2.9.32",
     "co": "4.5.x",
     "data.task": "3.0.x",
     "ramda": "0.15.x"

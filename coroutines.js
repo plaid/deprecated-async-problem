@@ -6,10 +6,6 @@ const path = require('path');
 const co = require('co');
 const R = require('ramda');
 
-
-// join :: String -> String -> String
-const join = R.curryN(2, path.join);
-
 // readFile :: String -> String -> Promise String
 const readFile = R.curry((encoding, filename) =>
   new Promise((res, rej) => {
@@ -23,17 +19,21 @@ const readFile = R.curry((encoding, filename) =>
   })
 );
 
+const readFiles = R.curry((encoding, filenames) =>
+  R.map(readFile(encoding), filenames));
+
 // write :: Object -> * -> *
 const write = R.flip(R.invoker(1, 'write'));
 
 
 const main = () => {
-  const dir = process.argv[2];
+  const joinDir = (f) => path.join(process.argv[2], f);
   co(function*() {
-    const index = yield readFile('utf8', join(dir, 'index.txt'));
-    return R.join('',
-                  yield Promise.all(R.map(R.pipe(join(dir), readFile('utf8')),
-                                    R.match(/^.*(?=\n)/gm, index))));
+    const index = yield readFile('utf8', joinDir('index.txt'));
+    const files = index.match(/^.*(?=\n)/gm)
+                       .map(joinDir);
+    const content = yield readFiles('utf8', files);
+    return content.join('');
   }).catch(write(process.error)).then(write(process.stdout));
 };
 

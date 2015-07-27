@@ -2,6 +2,8 @@
   "name": "async-problem",
   "private": true,
   "scripts": {
+    "compile": "babel async-await.js --optional es7.asyncFunctions --out-file async-await.compiled.js",
+    "pretests": "npm run compile",
     "test": "./test"
   },
   "dependencies": {
@@ -10,5 +12,8 @@
     "co": "4.5.x",
     "data.task": "3.0.x",
     "ramda": "0.15.x"
+  },
+  "devDependencies": {
+    "babel": "^5.8.9"
   }
 }

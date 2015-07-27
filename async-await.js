@@ -1,23 +1,27 @@
 'use strict';
 
+import {} from 'babel/polyfill';
 import fs from 'fs';
 import path from 'path';
 
-// this will be unnecessary if fs supports async/await
-async function* read(filePath) {
+const dir = process.argv[2] || 'input';
+
+// fs module polyfill: this will be unnecessary if fs supports async/await
+function read(filePath) {
   return new Promise(function(resolve, reject){
     fs.readFile(filePath, {encoding: 'utf8'}, function(err, result){
       if (err) { return reject(err); }
-      resolve(result);
+      resolve(result.toString());
     });
   });
 }
 
-async function* main() {
-  const indexPath = path.join(process.argv[2], 'index.txt', {encoding: 'utf8'});
-  const files = await read(indexPath);
-  const data = await* files.map(read);
-  process.stdout.write(data.join(''));
-}
+(async () => {
+  let files = await read(path.join(dir, 'index.txt'));
+  let data = await* files
+    .match(/^.*(?=\n)/gm)
+    .map((fileName) => path.join('input', fileName))
+    .map(read);
 
-if (process.argv[1] === __filename) main();
+  process.stdout.write(data.join(''));
+}());

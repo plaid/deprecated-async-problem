@@ -18,3 +18,4 @@ test promises.js
 test coroutines-co.js
 test coroutines-bluebird.js
 test futures.js
+test async-await.compiled.js

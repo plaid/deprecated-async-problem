@@ -5,15 +5,13 @@ import {readFile} from 'fs-promise';
 import {join} from 'path';
 
 async function main() {
-  const dir = process.argv[2];
-  let files = await readFile(join(dir, 'index.txt'));
-  let data = await* files
+  const data = await* (await readFile(join(process.argv[2], 'index.txt')))
     .toString()
     .match(/^.*(?=\n)/gm)
-    .map((fileName) => join('input', fileName))
-    .map((filePath) => readFile(filePath));
+    .map(filename => readFile(join('input', filename)))
+    .join('');
 
-  process.stdout.write(data.join(''));
+  process.stdout.write(data);
 };
 
 if (process.argv[1] === __filename) main();

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+node_modules/.bin/babel await.js >await.compiled.js
+
 expected="$(printf "FOO\nBAR\nBAZ\n")"
 
 test() {
@@ -17,4 +19,5 @@ test async.js
 test promises.js
 test coroutines-co.js
 test coroutines-bluebird.js
+test await.compiled.js
 test futures.js

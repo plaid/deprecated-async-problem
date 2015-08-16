@@ -17,6 +17,7 @@ test synchronous.js
 test callbacks.js
 test async.js
 test promises.js
+test promises-ramda.js
 test coroutines-co.js
 test coroutines-bluebird.js
 test await.compiled.js

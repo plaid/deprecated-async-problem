@@ -18,6 +18,7 @@ The solutions are best read in the following order:
   - [__callbacks.js__](https://github.com/plaid/async-problem/blob/master/callbacks.js)
   - [__async.js__](https://github.com/plaid/async-problem/blob/master/async.js)
   - [__promises.js__](https://github.com/plaid/async-problem/blob/master/promises.js)
+  - [__promises-ramda.js__](https://github.com/plaid/async-problem/blob/master/promises-ramda.js)
   - [__coroutines-co.js__](https://github.com/plaid/async-problem/blob/master/coroutines-co.js)
   - [__coroutines-bluebird.js__](https://github.com/plaid/async-problem/blob/master/coroutines-bluebird.js)
   - [__await.js__](https://github.com/plaid/async-problem/blob/master/await.js)

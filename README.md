@@ -14,15 +14,15 @@ may be defined at the top level but may only be invoked in `main`.
 
 The solutions are best read in the following order:
 
-  - [__synchronous.js__](https://github.com/plaid/async-problem/blob/master/synchronous.js)
-  - [__callbacks.js__](https://github.com/plaid/async-problem/blob/master/callbacks.js)
-  - [__async.js__](https://github.com/plaid/async-problem/blob/master/async.js)
-  - [__promises.js__](https://github.com/plaid/async-problem/blob/master/promises.js)
-  - [__promises-ramda.js__](https://github.com/plaid/async-problem/blob/master/promises-ramda.js)
-  - [__coroutines-co.js__](https://github.com/plaid/async-problem/blob/master/coroutines-co.js)
-  - [__coroutines-bluebird.js__](https://github.com/plaid/async-problem/blob/master/coroutines-bluebird.js)
-  - [__await.js__](https://github.com/plaid/async-problem/blob/master/await.js)
-  - [__futures.js__](https://github.com/plaid/async-problem/blob/master/futures.js)
+  - [__synchronous.js__](./synchronous.js)
+  - [__callbacks.js__](./callbacks.js)
+  - [__async.js__](./async.js)
+  - [__promises.js__](./promises.js)
+  - [__promises-ramda.js__](./promises-ramda.js)
+  - [__coroutines-co.js__](./coroutines-co.js)
+  - [__coroutines-bluebird.js__](./coroutines-bluebird.js)
+  - [__await.js__](./await.js)
+  - [__futures.js__](./futures.js)
 
 Solutions are graded on the following criteria:
 

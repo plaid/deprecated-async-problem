@@ -24,7 +24,8 @@ The solutions are best read in the following order:
   - [__await.js__](./await.js)
   - [__futures.js__](./futures.js)
 
-Solutions are graded on the following criteria:
+The above ordering is suggested reading order only – not grade. Solutions are
+graded on the following criteria:
 
   - the size of `main` (smaller is better); and
   - the degree to which the approach facilitates breaking the problem into

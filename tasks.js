@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const Future = require('data.task');
+const Task = require('data.task');
 const R = require('ramda');
 
 
@@ -11,9 +11,9 @@ const R = require('ramda');
 const join = R.curryN(2, path.join);
 
 // data Text = Buffer | String
-// readFile :: String -> String -> Future Error Text
+// readFile :: String -> String -> Task Error Text
 const readFile = R.curry((encoding, filename) =>
-  new Future((rej, res) => {
+  new Task((rej, res) => {
     fs.readFile(filename, {encoding: encoding}, (err, data) => {
       if (err != null) {
         rej(err);
@@ -24,15 +24,15 @@ const readFile = R.curry((encoding, filename) =>
   })
 );
 
-// concatFiles :: String -> Future Error String
+// concatFiles :: String -> Task Error String
 const concatFiles = dir =>
   R.pipe(
-    readFile('utf8'),                 // :: Future Error String
-    R.map(R.match(/^.*(?=\n)/gm)),    // :: Future Error [String]
-    R.map(R.map(join(dir))),          // :: Future Error [String]
-    R.map(R.map(readFile('utf8'))),   // :: Future Error [Future Error String]
-    R.chain(R.commute(Future.of)),    // :: Future Error [String]
-    R.map(R.join(''))                 // :: Future Error String
+    readFile('utf8'),                 // :: Task Error String
+    R.map(R.match(/^.*(?=\n)/gm)),    // :: Task Error [String]
+    R.map(R.map(join(dir))),          // :: Task Error [String]
+    R.map(R.map(readFile('utf8'))),   // :: Task Error [Task Error String]
+    R.chain(R.commute(Task.of)),      // :: Task Error [String]
+    R.map(R.join(''))                 // :: Task Error String
   )(join(dir, 'index.txt'));
 
 // write :: Object -> * -> *

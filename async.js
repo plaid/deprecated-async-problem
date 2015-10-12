@@ -15,13 +15,13 @@ const main = () => {
   const dir = process.argv[2];
   readFile(path.join(dir, 'index.txt'), (err, data) => {
     if (err != null) {
-      process.stderr.write(err.message + '\n');
+      process.stderr.write(String(err) + '\n');
       process.exit(1);
     }
     const filenames = data.match(/^.*(?=\n)/gm).map(s => path.join(dir, s));
     async.map(filenames, readFile, (err, results) => {
       if (err != null) {
-        process.stderr.write(err.message + '\n');
+        process.stderr.write(String(err) + '\n');
         process.exit(1);
       } else {
         process.stdout.write(results.join(''));

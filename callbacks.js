@@ -8,7 +8,7 @@ const main = () => {
   const dir = process.argv[2];
   fs.readFile(path.join(dir, 'index.txt'), {encoding: 'utf8'}, (err, data) => {
     if (err != null) {
-      process.stderr.write(err.message + '\n');
+      process.stderr.write(String(err) + '\n');
       process.exit(1);
     }
     const filenames = data.match(/^.*(?=\n)/gm);
@@ -17,7 +17,7 @@ const main = () => {
     filenames.forEach((file, idx) => {
       fs.readFile(path.join(dir, file), {encoding: 'utf8'}, (err, data) => {
         if (err != null) {
-          process.stderr.write(err.message + '\n');
+          process.stderr.write(String(err) + '\n');
           process.exit(1);
         }
         $results[idx] = data;

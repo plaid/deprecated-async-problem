@@ -9,6 +9,9 @@ per line), then read each of the files listed in the index concurrently,
 concat the resulting strings (in the order specified by the index), and
 write the result to stdout.*
 
+*The program's exit code should be 0 if the entire operation is successful;
+1 otherwise.*
+
 All side effects must be isolated to the `main` function. Impure functions
 may be defined at the top level but may only be invoked in `main`.
 

@@ -21,11 +21,23 @@ const readFile = (options, filename) =>
 
 async function main() {
   const index = path.join(process.argv[2], 'index.txt');
-  const data = await readFile({encoding: 'utf8'}, index);
+  let data;
+  try {
+    data = await readFile({encoding: 'utf8'}, index);
+  } catch (err) {
+    process.stderr.write(String(err) + '\n');
+    process.exit(1);
+  }
   const filenames = data.match(/^.*(?=\n)/gm);
-  const results = await* filenames.map(filename =>
-    readFile({encoding: 'utf8'}, path.join('input', filename))
-  );
+  let results;
+  try {
+    results = await* filenames.map(filename =>
+      readFile({encoding: 'utf8'}, path.join('input', filename))
+    );
+  } catch (err) {
+    process.stderr.write(String(err) + '\n');
+    process.exit(1);
+  }
   process.stdout.write(results.join(''));
 };
 

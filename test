@@ -2,15 +2,52 @@
 
 node_modules/.bin/babel await.js >await.compiled.js
 
-expected="$(printf "FOO\nBAR\nBAZ\n")"
+passed="\033[0;32mpassed\033[0m\n"
+failed="\033[0;31mfailed\033[0m\n"
 
 test() {
-  printf "Testing %s... " "$1"
-  if [[ "$(node --harmony "$1" input)" == "$expected" ]] ; then
-    printf "\033[0;32mpassed\033[0m\n"
+  local actual
+  local expected
+
+  printf "Testing \033[0;36m%s\033[0m...\n" "$1"
+
+  printf %s "- correct directory name...     "
+  expected="$(printf "FOO\nBAR\nBAZ\n")"
+  if ! actual="$(node --harmony "$1" input)" ; then
+    printf "$failed"
+  elif [[ "$actual" == "$expected" ]] ; then
+    printf "$passed"
   else
-    printf "\033[0;31mfailed\033[0m\n"
+    printf "$failed"
   fi
+
+  printf %s "- incorrect directory name...   "
+  expected="^Error: ENOENT, .* 'XXX/index.txt'$"
+  if actual="$(node --harmony "$1" XXX 2>&1 1>/dev/null)" ; then
+    printf "$failed"
+  elif [[ $? != 1 ]] ; then
+    printf "$failed"
+  elif [[ "$actual" =~ $expected ]] ; then
+    printf "$passed"
+  else
+    printf "$failed"
+  fi
+
+  printf %s "- inaccurate index...           "
+  rm -f -- input/baz.txt
+  expected="^Error: ENOENT, .* 'input/baz.txt'$"
+  if actual="$(node --harmony "$1" input 2>&1 1>/dev/null)" ; then
+    printf "$failed"
+  elif [[ $? != 1 ]] ; then
+    printf "$failed"
+  elif [[ "$actual" =~ $expected ]] ; then
+    printf "$passed"
+  else
+    printf "$failed"
+  fi
+  git checkout -- input/baz.txt
+
+  echo
 }
 
 test synchronous.js

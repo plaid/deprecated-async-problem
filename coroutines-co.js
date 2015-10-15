@@ -5,6 +5,7 @@ const path = require('path');
 
 const co = require('co');
 const R = require('ramda');
+const S = require('sanctuary');
 
 
 // readFile :: String -> String -> Promise String
@@ -30,7 +31,7 @@ const main = () => {
   const pathTo = (filename) => path.join(process.argv[2], filename);
   co(function*() {
     const index = yield readFile('utf8', pathTo('index.txt'));
-    const filenames = index.match(/^.*(?=\n)/gm).map(pathTo);
+    const filenames = S.lines(index).map(pathTo);
     const results = yield readFiles('utf8', filenames);
     return results.join('');
   })

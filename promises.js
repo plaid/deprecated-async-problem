@@ -3,6 +3,8 @@
 const fs = require('fs');
 const path = require('path');
 
+const S = require('sanctuary');
+
 
 // readFile :: (Object, String) -> Promise String
 const readFile = (options, filename) =>
@@ -20,10 +22,9 @@ const readFile = (options, filename) =>
 const main = () => {
   const dir = process.argv[2];
   readFile({encoding: 'utf8'}, path.join(dir, 'index.txt'))
-  .then(data => Promise.all(
-    data
-    .match(/^.*(?=\n)/gm)
-    .map(file => readFile({encoding: 'utf8'}, path.join(dir, file)))
+  .then(S.lines)
+  .then(filenames => Promise.all(
+    filenames.map(file => readFile({encoding: 'utf8'}, path.join(dir, file)))
   ))
   .then(results => results.join(''))
   .then(data => {

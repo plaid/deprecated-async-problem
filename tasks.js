@@ -5,6 +5,7 @@ const path = require('path');
 
 const Task = require('data.task');
 const R = require('ramda');
+const S = require('sanctuary');
 
 
 // join :: String -> String -> String
@@ -26,14 +27,13 @@ const readFile = R.curry((encoding, filename) =>
 
 // concatFiles :: String -> Task Error String
 const concatFiles = dir =>
-  R.pipe(
-    readFile('utf8'),                 // :: Task Error String
-    R.map(R.match(/^.*(?=\n)/gm)),    // :: Task Error [String]
-    R.map(R.map(join(dir))),          // :: Task Error [String]
-    R.map(R.map(readFile('utf8'))),   // :: Task Error [Task Error String]
-    R.chain(R.commute(Task.of)),      // :: Task Error [String]
-    R.map(R.join(''))                 // :: Task Error String
-  )(join(dir, 'index.txt'));
+  S.pipe([readFile('utf8'),               // :: Task Error String
+          R.map(S.lines),                 // :: Task Error [String]
+          R.map(R.map(join(dir))),        // :: Task Error [String]
+          R.map(R.map(readFile('utf8'))), // :: Task Error [Task Error String]
+          R.chain(R.commute(Task.of)),    // :: Task Error [String]
+          R.map(R.join(''))],             // :: Task Error String
+         join(dir, 'index.txt'));
 
 
 const main = () => {

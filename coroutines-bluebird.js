@@ -5,6 +5,7 @@ const path = require('path');
 
 const bluebird = require('bluebird');
 const R = require('ramda');
+const S = require('sanctuary');
 
 
 // readFile :: String -> String -> Promise String
@@ -21,7 +22,7 @@ const readFiles = R.curry((encoding, filenames) =>
 const walk = bluebird.coroutine(function*(dir) {
   const pathTo = (filename) => path.join(dir, filename);
   const index = yield readFile('utf8', pathTo('index.txt'));
-  const filenames = index.match(/^.*(?=\n)/gm).map(pathTo);
+  const filenames = S.lines(index).map(pathTo);
   const results = yield readFiles('utf8', filenames);
   return results.join('');
 });

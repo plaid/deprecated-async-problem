@@ -6,6 +6,7 @@ const path = require('path');
 
 const Promise = require('bluebird');
 const R = require('ramda');
+const S = require('sanctuary');
 
 
 // join :: String -> String -> String
@@ -19,15 +20,14 @@ const then = R.invoker(1, 'then');
 
 // concatFiles :: String -> Promise String
 const concatFiles = (dir) =>
-  R.pipe(
-    join(R.__, 'index.txt'),
-    readFile({encoding: 'utf8'}),
-    then(R.match(/^.*(?=\n)/gm)),
-    then(R.map(join(dir))),
-    then(R.map(readFile({encoding: 'utf8'}))),
-    then(Promise.all),
-    then(R.join(''))
-  )(dir);
+  S.pipe([join(R.__, 'index.txt'),
+          readFile({encoding: 'utf8'}),
+          then(S.lines),
+          then(R.map(join(dir))),
+          then(R.map(readFile({encoding: 'utf8'}))),
+          then(Promise.all),
+          then(R.join(''))],
+         dir);
 
 
 const main = () => {

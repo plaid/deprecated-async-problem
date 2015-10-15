@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 require('babel/polyfill');
+const S = require('sanctuary');
 
 
 // readFile :: (Object, String) -> Promise String
@@ -28,7 +29,7 @@ async function main() {
     process.stderr.write(String(err) + '\n');
     process.exit(1);
   }
-  const filenames = data.match(/^.*(?=\n)/gm);
+  const filenames = S.lines(data);
   let results;
   try {
     results = await* filenames.map(filename =>

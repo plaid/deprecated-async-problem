@@ -3,6 +3,8 @@
 const fs = require('fs');
 const path = require('path');
 
+const S = require('sanctuary');
+
 
 const main = () => {
   const dir = process.argv[2];
@@ -11,7 +13,7 @@ const main = () => {
       process.stderr.write(String(err) + '\n');
       process.exit(1);
     }
-    const filenames = data.match(/^.*(?=\n)/gm);
+    const filenames = S.lines(data);
     const $results = [];
     let filesRead = 0;
     filenames.forEach((file, idx) => {

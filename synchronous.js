@@ -3,6 +3,8 @@
 const fs = require('fs');
 const path = require('path');
 
+const S = require('sanctuary');
+
 
 const main = () => {
   const dir = process.argv[2];
@@ -21,7 +23,7 @@ const main = () => {
       process.exit(1);
     }
   };
-  process.stdout.write(index.match(/^.*(?=\n)/gm).map(readFile).join(''));
+  process.stdout.write(S.lines(index).map(readFile).join(''));
 };
 
 if (process.argv[1] === __filename) main();

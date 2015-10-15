@@ -29,13 +29,17 @@ const concatFiles = (dir) =>
     then(R.join(''))
   )(dir);
 
-// write :: Object -> * -> *
-const write = R.flip(R.invoker(1, 'write'));
-
 
 const main = () => {
   concatFiles(process.argv[2])
-  .then(write(process.stdout), write(process.stderr))
+  .then(data => {
+          process.stdout.write(data);
+          process.exit(0);
+        },
+        err => {
+          process.stderr.write(String(err) + '\n');
+          process.exit(1);
+        });
 };
 
 if (process.argv[1] === __filename) main();

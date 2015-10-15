@@ -35,13 +35,17 @@ const concatFiles = dir =>
     R.map(R.join(''))                 // :: Task Error String
   )(join(dir, 'index.txt'));
 
-// write :: Object -> * -> *
-const write = R.flip(R.invoker(1, 'write'));
-
 
 const main = () => {
   concatFiles(process.argv[2])
-  .fork(write(process.stderr), write(process.stdout));
+  .fork(err => {
+          process.stderr.write(String(err) + '\n');
+          process.exit(1);
+        },
+        data => {
+          process.stdout.write(data);
+          process.exit(0);
+        });
 };
 
 if (process.argv[1] === __filename) main();

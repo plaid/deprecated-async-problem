@@ -6,12 +6,22 @@ const path = require('path');
 
 const main = () => {
   const dir = process.argv[2];
-  process.stdout.write(
-    fs.readFileSync(path.join(dir, 'index.txt'), {encoding: 'utf8'})
-    .match(/^.*(?=\n)/gm)
-    .map(file => fs.readFileSync(path.join(dir, file), {encoding: 'utf8'}))
-    .join('')
-  );
+  let index;
+  try {
+    index = fs.readFileSync(path.join(dir, 'index.txt'), {encoding: 'utf8'});
+  } catch (err) {
+    process.stderr.write(String(err) + '\n');
+    process.exit(1);
+  }
+  const readFile = filename => {
+    try {
+      return fs.readFileSync(path.join(dir, filename), {encoding: 'utf8'});
+    } catch (err) {
+      process.stderr.write(String(err) + '\n');
+      process.exit(1);
+    }
+  };
+  process.stdout.write(index.match(/^.*(?=\n)/gm).map(readFile).join(''));
 };
 
 if (process.argv[1] === __filename) main();

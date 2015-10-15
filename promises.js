@@ -25,11 +25,15 @@ const main = () => {
     .match(/^.*(?=\n)/gm)
     .map(file => readFile({encoding: 'utf8'}, path.join(dir, file)))
   ))
-  .then(data => process.stdout.write(data.join('')))
-  .catch(err => {
-    process.stderr.write(err.message);
-    process.exit(1);
-  });
+  .then(results => results.join(''))
+  .then(data => {
+          process.stdout.write(data);
+          process.exit(0);
+        },
+        err => {
+          process.stderr.write(String(err) + '\n');
+          process.exit(1);
+        });
 };
 
 if (process.argv[1] === __filename) main();

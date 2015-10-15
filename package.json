@@ -9,7 +9,7 @@
     "bluebird": "2.9.x",
     "co": "4.5.x",
     "data.task": "3.0.x",
-    "ramda": "0.17.x"
+    "ramda": "0.18.x"
   },
   "devDependencies": {
     "babel": "5.x.x"

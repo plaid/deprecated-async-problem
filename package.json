@@ -11,7 +11,7 @@
     "data.task": "3.0.x",
     "foreign": "1.0.x",
     "kgo": "3.1.x",
-    "ramda": "0.18.x",
+    "ramda": "0.19.x",
     "sanctuary": "0.7.x"
   },
   "devDependencies": {

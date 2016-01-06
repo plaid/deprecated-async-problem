@@ -31,7 +31,7 @@ const concatFiles = dir =>
           R.map(S.lines),                 // :: Task Error [String]
           R.map(R.map(join(dir))),        // :: Task Error [String]
           R.map(R.map(readFile('utf8'))), // :: Task Error [Task Error String]
-          R.chain(R.commute(Task.of)),    // :: Task Error [String]
+          R.chain(R.sequence(Task.of)),   // :: Task Error [String]
           R.map(R.join(''))],             // :: Task Error String
          join(dir, 'index.txt'));
 

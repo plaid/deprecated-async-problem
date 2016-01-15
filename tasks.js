@@ -48,4 +48,4 @@ const main = () => {
         });
 };
 
-if (process.argv[1] === __filename) main();
+if (process.mainModule.filename === __filename) main();

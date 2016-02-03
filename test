@@ -54,6 +54,7 @@ test synchronous.js
 test callbacks.js
 test async.js
 test kgo.js
+test righto.js
 test promises.js
 test promises-ramda.js
 test coroutines-co.js

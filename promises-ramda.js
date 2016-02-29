@@ -12,14 +12,14 @@ const S = require('sanctuary');
 // join :: String -> String -> String
 const join = R.curryN(2, path.join);
 
-// readFile :: (Object, String) -> Promise String
-const readFile = R.curry(R.flip(Promise.promisify(fs.readFile)));
+// readFile :: Object -> String -> Promise String
+const readFile = S.flip(Promise.promisify(fs.readFile));
 
 // then :: (a -> b) -> Promise a -> Promise b
 const then = R.invoker(1, 'then');
 
 // concatFiles :: String -> Promise String
-const concatFiles = (dir) =>
+const concatFiles = dir =>
   S.pipe([join(R.__, 'index.txt'),
           readFile({encoding: 'utf8'}),
           then(S.lines),

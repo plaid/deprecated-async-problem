@@ -13,7 +13,7 @@
     "kgo": "3.1.x",
     "ramda": "0.19.x",
     "righto": "0.3.x",
-    "sanctuary": "0.7.x"
+    "sanctuary": "0.9.x"
   },
   "devDependencies": {
     "babel": "5.x.x"

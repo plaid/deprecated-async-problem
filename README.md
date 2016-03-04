@@ -28,6 +28,7 @@ The solutions are best read in the following order:
   - [__coroutines-bluebird.js__](./coroutines-bluebird.js)
   - [__await.js__](./await.js)
   - [__tasks.js__](./tasks.js)
+  - [__lazy-either.js__](./lazy-either.js)
 
 The above ordering is suggested reading order only – not grade. Solutions are
 graded on the following criteria:

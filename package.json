@@ -11,6 +11,7 @@
     "data.task": "3.0.x",
     "foreign": "1.0.x",
     "kgo": "3.1.x",
+    "lazy-either": "1.0.x",
     "ramda": "0.19.x",
     "righto": "0.3.x",
     "sanctuary": "0.9.x"

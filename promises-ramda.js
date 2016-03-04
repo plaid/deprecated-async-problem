@@ -9,16 +9,16 @@ const R = require('ramda');
 const S = require('sanctuary');
 
 
-// join :: String -> String -> String
+//    join :: String -> String -> String
 const join = R.curryN(2, path.join);
 
-// readFile :: Object -> String -> Promise String
+//    readFile :: Object -> String -> Promise Error String
 const readFile = S.flip(Promise.promisify(fs.readFile));
 
-// then :: (a -> b) -> Promise a -> Promise b
+//    then :: (a -> b) -> Promise e a -> Promise e b
 const then = R.invoker(1, 'then');
 
-// concatFiles :: String -> Promise String
+//    concatFiles :: String -> Promise Error String
 const concatFiles = dir =>
   S.pipe([join(R.__, 'index.txt'),
           readFile({encoding: 'utf8'}),

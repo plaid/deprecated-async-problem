@@ -6,7 +6,7 @@ const path = require('path');
 const S = require('sanctuary');
 
 
-// readFile :: (Object, String) -> Promise String
+//    readFile :: (Object, String) -> Promise Error String
 const readFile = (options, filename) =>
   new Promise((res, rej) => {
     fs.readFile(filename, options, (err, data) => {

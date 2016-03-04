@@ -8,17 +8,17 @@ const R = require('ramda');
 const S = require('sanctuary');
 
 
-// readFile :: String -> String -> Promise String
+//    readFile :: String -> String -> Promise Error String
 const readFile = R.curry((encoding, filename) =>
   bluebird.promisify(fs.readFile)(filename, {encoding: encoding})
 );
 
-// readFiles :: String -> [String] -> Promise [String]
+//    readFiles :: String -> [String] -> Promise Error [String]
 const readFiles = R.curry((encoding, filenames) =>
   bluebird.all(R.map(readFile(encoding), filenames))
 );
 
-// walk :: String -> Promise String
+//    walk :: String -> Promise Error String
 const walk = bluebird.coroutine(function*(dir) {
   const pathTo = (filename) => path.join(dir, filename);
   const index = yield readFile('utf8', pathTo('index.txt'));

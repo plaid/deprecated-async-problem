@@ -6,9 +6,10 @@ const path = require('path');
 const righto = require('righto');
 
 
-// readFile :: String -> String -> Righto String
+//    readFile :: String -> String -> Righto String
 const readFile = dir => file =>
   righto(fs.readFile, path.join(dir, file), {encoding: 'utf8'});
+
 
 const main = () => {
   const dir = process.argv[2];

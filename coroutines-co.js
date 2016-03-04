@@ -8,7 +8,7 @@ const R = require('ramda');
 const S = require('sanctuary');
 
 
-// readFile :: String -> String -> Promise String
+//    readFile :: String -> String -> Promise Error String
 const readFile = R.curry((encoding, filename) =>
   new Promise((res, rej) => {
     fs.readFile(filename, {encoding: encoding}, (err, data) => {
@@ -21,7 +21,7 @@ const readFile = R.curry((encoding, filename) =>
   })
 );
 
-// readFiles :: String -> [String] -> Promise [String]
+//    readFiles :: String -> [String] -> Promise Error [String]
 const readFiles = R.curry((encoding, filenames) =>
   Promise.all(R.map(readFile(encoding), filenames))
 );

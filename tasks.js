@@ -8,11 +8,11 @@ const R = require('ramda');
 const S = require('sanctuary');
 
 
-// join :: String -> String -> String
+//    join :: String -> String -> String
 const join = R.curryN(2, path.join);
 
-// data Text = Buffer | String
-// readFile :: String -> String -> Task Error Text
+//    data Text = Buffer | String
+//    readFile :: String -> String -> Task Error Text
 const readFile = R.curry((encoding, filename) =>
   new Task((rej, res) => {
     fs.readFile(filename, {encoding: encoding}, (err, data) => {
@@ -25,7 +25,7 @@ const readFile = R.curry((encoding, filename) =>
   })
 );
 
-// concatFiles :: String -> Task Error String
+//    concatFiles :: String -> Task Error String
 const concatFiles = dir =>
   S.pipe([readFile('utf8'),               // :: Task Error String
           R.map(S.lines),                 // :: Task Error [String]

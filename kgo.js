@@ -9,11 +9,12 @@ const R = require('ramda');
 const S = require('sanctuary');
 
 
-// join :: String -> String -> String
+//    join :: String -> String -> String
 const join = R.curryN(2, path.join);
 
-// data Text = Buffer | String
-// readFile :: String -> String -> ((Error?, Text?) -> Unit) -> Unit
+//    data Text = Buffer | String
+//    readFile ::
+//      String -> String -> ((Error?, Text?) -> Undefined) -> Undefined
 const readFile = R.curry((encoding, filename, callback) => {
   fs.readFile(filename, {encoding: encoding}, callback);
 });

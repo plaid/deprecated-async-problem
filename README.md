@@ -24,6 +24,7 @@ The solutions are best read in the following order:
   - [__righto.js__](./righto.js)
   - [__promises.js__](./promises.js)
   - [__promises-ramda.js__](./promises-ramda.js)
+  - [__most.js__](./most.js)
   - [__coroutines-co.js__](./coroutines-co.js)
   - [__coroutines-bluebird.js__](./coroutines-bluebird.js)
   - [__await.js__](./await.js)

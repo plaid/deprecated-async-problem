@@ -22,7 +22,7 @@ const main = () => {
   async.seq(
     join,
     fs.readFile,
-    sync(x => x.toString()),
+    sync(String),
     sync(S.lines),
     map(join),
     map(fs.readFile),

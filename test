@@ -63,3 +63,4 @@ test coroutines-bluebird.js
 test await.compiled.js
 test tasks.js
 test lazy-either.js
+test fibers.js

@@ -53,6 +53,7 @@ test() {
 test synchronous.js
 test callbacks.js
 test async.js
+test async-seq.js
 test kgo.js
 test righto.js
 test promises.js

@@ -10,8 +10,8 @@ const index = x => path.join(process.argv[2], x);
 const main = () => {
   readFile(index('index.txt'), {encoding: 'utf8'})
   .map(R.unary(S.lines))
-  .concatMap(files => Rx.Observable.from(files)
-    .concatMap(fileName => readFile(index(fileName), {encoding: 'utf8'})))
+  .concatMap(R.map( x => readFile(index(x), {encoding: 'utf8'}) ) )
+  .concatAll()
   .subscribe(
     (results) => {
       process.stdout.write(results);

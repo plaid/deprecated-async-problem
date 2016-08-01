@@ -7,6 +7,7 @@
   "dependencies": {
     "async": "1.2.x",
     "bluebird": "2.9.x",
+    "bluebird-promisell": "0.4.x",
     "co": "4.5.x",
     "data.task": "3.0.x",
     "foreign": "1.0.x",

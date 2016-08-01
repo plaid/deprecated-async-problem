@@ -57,6 +57,7 @@ test kgo.js
 test righto.js
 test promises.js
 test promises-ramda.js
+test bluebird-promisell.js
 test most.js
 test coroutines-co.js
 test coroutines-bluebird.js

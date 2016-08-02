@@ -16,6 +16,7 @@
     "most": "0.18.x",
     "ramda": "0.19.x",
     "righto": "0.3.x",
+    "rx": "4.1.x",
     "sanctuary": "0.9.x"
   },
   "devDependencies": {

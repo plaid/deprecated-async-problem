@@ -10,6 +10,7 @@
     "bluebird-promisell": "0.4.x",
     "co": "4.5.x",
     "data.task": "3.0.x",
+    "fibers": "^1.0.x",
     "foreign": "1.0.x",
     "kgo": "3.1.x",
     "lazy-either": "1.0.x",

@@ -31,6 +31,8 @@ The solutions are best read in the following order:
   - [__await.js__](./await.js)
   - [__tasks.js__](./tasks.js)
   - [__lazy-either.js__](./lazy-either.js)
+  - [__fibers.js__](./fibers.js)
+  
 
 The above ordering is suggested reading order only – not grade. Solutions are
 graded on the following criteria:

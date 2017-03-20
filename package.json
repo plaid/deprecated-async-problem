@@ -14,6 +14,12 @@
     "kgo": "3.1.x",
     "lazy-either": "1.0.x",
     "most": "0.18.x",
+    "pull-catch": "^1.0.0",
+    "pull-file": "^1.0.0",
+    "pull-paramap": "^1.2.1",
+    "pull-split": "^0.2.0",
+    "pull-stdio": "^0.1.0",
+    "pull-stream": "^3.5.0",
     "ramda": "0.19.x",
     "righto": "0.3.x",
     "sanctuary": "0.9.x"

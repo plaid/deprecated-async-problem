@@ -1,43 +1,25 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
+const bluebird      = require('bluebird');
 
-const bluebird = require('bluebird');
-const R = require('ramda');
-const S = require('sanctuary');
+const exit0         = require('./common/exit0');
+const exit1         = require('./common/exit1');
+const join          = require('./common/join');
+const readFile      = require('./common/read-file-promise');
+const S             = require('./common/sanctuary');
 
 
-//    readFile :: String -> String -> Promise Error String
-const readFile = R.curry((encoding, filename) =>
-  bluebird.promisify(fs.readFile)(filename, {encoding: encoding})
-);
-
-//    readFiles :: String -> [String] -> Promise Error [String]
-const readFiles = R.curry((encoding, filenames) =>
-  bluebird.all(R.map(readFile(encoding), filenames))
-);
-
-//    walk :: String -> Promise Error String
-const walk = bluebird.coroutine(function*(dir) {
-  const pathTo = (filename) => path.join(dir, filename);
-  const index = yield readFile('utf8', pathTo('index.txt'));
-  const filenames = S.lines(index).map(pathTo);
-  const results = yield readFiles('utf8', filenames);
-  return results.join('');
+//    concatFiles :: (String -> String) -> Promise Error String
+const concatFiles = bluebird.coroutine(function* generator(path) {
+  const index = yield readFile(path('index.txt'));
+  const filenames = S.map(path, S.lines(index));
+  const results = yield bluebird.all(S.map(readFile, filenames));
+  return S.joinWith('', results);
 });
 
 
 const main = () => {
-  walk(process.argv[2])
-  .then(data => {
-          process.stdout.write(data);
-          process.exit(0);
-        },
-        err => {
-          process.stderr.write(String(err) + '\n');
-          process.exit(1);
-        });
+  concatFiles(join(process.argv[2])).then(exit0, exit1);
 };
 
 if (process.mainModule.filename === __filename) main();

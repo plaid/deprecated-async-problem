@@ -1,33 +1,26 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
+const S             = require('sanctuary');
 
-const S = require('sanctuary');
+const exit0         = require('./common/exit0');
+const exit1         = require('./common/exit1');
+const join          = require('./common/join');
+const readFile      = require('./common/read-file-callback');
 
 
 const main = () => {
-  const dir = process.argv[2];
-  fs.readFile(path.join(dir, 'index.txt'), {encoding: 'utf8'}, (err, data) => {
-    if (err != null) {
-      process.stderr.write(String(err) + '\n');
-      process.exit(1);
-    }
+  const path = join(process.argv[2]);
+  readFile(path('index.txt'), (err, data) => {
+    if (err != null) exit1(err);
     const filenames = S.lines(data);
     const $results = [];
     let filesRead = 0;
     filenames.forEach((file, idx) => {
-      fs.readFile(path.join(dir, file), {encoding: 'utf8'}, (err, data) => {
-        if (err != null) {
-          process.stderr.write(String(err) + '\n');
-          process.exit(1);
-        }
+      readFile(path(file), (err, data) => {
+        if (err != null) exit1(err);
         $results[idx] = data;
         filesRead += 1;
-        if (filesRead === filenames.length) {
-          process.stdout.write($results.join(''));
-          process.exit(0);
-        }
+        if (filesRead === filenames.length) exit0(S.joinWith('', $results));
       });
     });
   });

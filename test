@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-node_modules/.bin/babel await.js >await.compiled.js
-
 passed="\033[0;32mpassed\033[0m\n"
 failed="\033[0;31mfailed\033[0m\n"
 
@@ -13,7 +11,7 @@ test() {
 
   printf %s "- correct directory name...     "
   expected="$(printf "FOO\nBAR\nBAZ\n")"
-  if ! actual="$(node --harmony "$1" input)" ; then
+  if ! actual="$(node "$1" input)" ; then
     printf "$failed"
   elif [[ "$actual" == "$expected" ]] ; then
     printf "$passed"
@@ -23,7 +21,7 @@ test() {
 
   printf %s "- incorrect directory name...   "
   expected="^Error: ENOENT[,:] .* 'XXX/index.txt'$"
-  if actual="$(node --harmony "$1" XXX 2>&1 1>/dev/null)" ; then
+  if actual="$(node "$1" XXX 2>&1 1>/dev/null)" ; then
     printf "$failed"
   elif [[ $? != 1 ]] ; then
     printf "$failed"
@@ -36,7 +34,7 @@ test() {
   printf %s "- inaccurate index...           "
   rm -f -- input/baz.txt
   expected="^Error: ENOENT[,:] .* 'input/baz.txt'$"
-  if actual="$(node --harmony "$1" input 2>&1 1>/dev/null)" ; then
+  if actual="$(node "$1" input 2>&1 1>/dev/null)" ; then
     printf "$failed"
   elif [[ $? != 1 ]] ; then
     printf "$failed"
@@ -53,14 +51,12 @@ test() {
 test synchronous.js
 test callbacks.js
 test async.js
-test kgo.js
 test righto.js
 test promises.js
-test promises-ramda.js
+test promises-pipe.js
 test bluebird-promisell.js
 test most.js
 test coroutines-co.js
 test coroutines-bluebird.js
-test await.compiled.js
-test tasks.js
-test lazy-either.js
+test await.js
+test futures.js

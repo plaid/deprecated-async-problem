@@ -1,29 +1,33 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
+const fs            = require('fs');
 
-const S = require('sanctuary');
+const S             = require('sanctuary');
+
+const exit0         = require('./common/exit0');
+const exit1         = require('./common/exit1');
+const join          = require('./common/join');
+
+
+const readFile = filename => {
+  try {
+    return fs.readFileSync(filename, {encoding: 'utf8'});
+  } catch (err) {
+    exit1(err);
+  }
+};
 
 
 const main = () => {
-  const dir = process.argv[2];
-  let index;
-  try {
-    index = fs.readFileSync(path.join(dir, 'index.txt'), {encoding: 'utf8'});
-  } catch (err) {
-    process.stderr.write(String(err) + '\n');
-    process.exit(1);
-  }
-  const readFile = filename => {
-    try {
-      return fs.readFileSync(path.join(dir, filename), {encoding: 'utf8'});
-    } catch (err) {
-      process.stderr.write(String(err) + '\n');
-      process.exit(1);
-    }
-  };
-  process.stdout.write(S.lines(index).map(readFile).join(''));
+  const path = join(process.argv[2]);
+  S.pipe([path,
+          readFile,
+          S.lines,
+          S.map(path),
+          S.map(readFile),
+          S.joinWith(''),
+          exit0],
+         'index.txt');
 };
 
 if (process.mainModule.filename === __filename) main();

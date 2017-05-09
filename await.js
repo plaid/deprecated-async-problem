@@ -1,45 +1,23 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-
-require('babel/polyfill');
-const S = require('sanctuary');
-
-
-//    readFile :: (Object, String) -> Promise Error String
-const readFile = (options, filename) =>
-  new Promise((res, rej) => {
-    fs.readFile(filename, options, (err, data) => {
-      if (err != null) {
-        rej(err);
-      } else {
-        res(data);
-      }
-    });
-  });
+const exit0         = require('./common/exit0');
+const exit1         = require('./common/exit1');
+const join          = require('./common/join');
+const readFile      = require('./common/read-file-promise');
+const S             = require('./common/sanctuary');
 
 
-async function main() {
-  const index = path.join(process.argv[2], 'index.txt');
-  let data;
-  try {
-    data = await readFile({encoding: 'utf8'}, index);
-  } catch (err) {
-    process.stderr.write(String(err) + '\n');
-    process.exit(1);
-  }
-  const filenames = S.lines(data);
-  let results;
-  try {
-    results = await* filenames.map(filename =>
-      readFile({encoding: 'utf8'}, path.join('input', filename))
-    );
-  } catch (err) {
-    process.stderr.write(String(err) + '\n');
-    process.exit(1);
-  }
-  process.stdout.write(results.join(''));
+//  concatFiles :: (String -> String) -> Promise Error String
+async function concatFiles(path) {
+  const index = await readFile(path('index.txt'));
+  const filenames = S.map(path, S.lines(index));
+  const results = await Promise.all(S.map(readFile, filenames));
+  return S.joinWith('', results);
+}
+
+
+const main = () => {
+  concatFiles(join(process.argv[2])).then(exit0, exit1);
 };
 
 if (process.mainModule.filename === __filename) main();

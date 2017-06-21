@@ -1,40 +1,26 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
+const exit0         = require('./common/exit0');
+const exit1         = require('./common/exit1');
+const join          = require('./common/join');
+const readFile      = require('./common/read-file-promise');
+const S             = require('./common/sanctuary');
 
-const S = require('sanctuary');
 
-
-//    readFile :: (Object, String) -> Promise Error String
-const readFile = (options, filename) =>
-  new Promise((res, rej) => {
-    fs.readFile(filename, options, (err, data) => {
-      if (err != null) {
-        rej(err);
-      } else {
-        res(data);
-      }
-    });
-  });
+//    concatFiles :: (String -> String) -> Promise Error String
+const concatFiles = path =>
+  Promise.resolve('index.txt')
+  .then(path)
+  .then(readFile)
+  .then(S.lines)
+  .then(S.map(path))
+  .then(S.map(readFile))
+  .then(Promise.all.bind(Promise))
+  .then(S.joinWith(''));
 
 
 const main = () => {
-  const dir = process.argv[2];
-  readFile({encoding: 'utf8'}, path.join(dir, 'index.txt'))
-  .then(S.lines)
-  .then(filenames => Promise.all(
-    filenames.map(file => readFile({encoding: 'utf8'}, path.join(dir, file)))
-  ))
-  .then(results => results.join(''))
-  .then(data => {
-          process.stdout.write(data);
-          process.exit(0);
-        },
-        err => {
-          process.stderr.write(String(err) + '\n');
-          process.exit(1);
-        });
+  concatFiles(join(process.argv[2])).then(exit0, exit1);
 };
 
 if (process.mainModule.filename === __filename) main();

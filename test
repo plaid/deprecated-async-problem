@@ -60,3 +60,4 @@ test coroutines-co.js
 test coroutines-bluebird.js
 test await.js
 test futures.js
+test callbacks-revenge.js

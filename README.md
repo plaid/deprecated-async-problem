@@ -29,6 +29,7 @@ The solutions are best read in the following order:
   - [__coroutines-bluebird.js__](./coroutines-bluebird.js)
   - [__await.js__](./await.js)
   - [__futures.js__](./futures.js)
+  - [__callbacks-revenge.js__](./callbacks-revenge.js)
 
 The above ordering is suggested reading order only – not grade. Solutions are
 graded on the following criteria:

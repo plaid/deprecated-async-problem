@@ -50,6 +50,7 @@ test() {
 
 test synchronous.js
 test callbacks.js
+test node-streams.js
 test async.js
 test righto.js
 test promises.js

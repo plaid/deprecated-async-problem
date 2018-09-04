@@ -12,10 +12,12 @@
     "fluture": "6.2.x",
     "fluture-sanctuary-types": "1.2.x",
     "foreign": "1.0.x",
+    "mississippi": "3.0.x",
     "most": "1.4.x",
     "righto": "3.0.x",
     "sanctuary": "0.13.x",
-    "sanctuary-def": "0.12.x"
+    "sanctuary-def": "0.12.x",
+    "split2": "3.0.x"
   },
   "devDependencies": {
     "eslint": "3.19.x",

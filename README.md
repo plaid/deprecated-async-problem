@@ -19,6 +19,7 @@ The solutions are best read in the following order:
 
   - [__synchronous.js__](./synchronous.js)
   - [__callbacks.js__](./callbacks.js)
+  - [__node-streams.js__](./node-streams.js)
   - [__async.js__](./async.js)
   - [__righto.js__](./righto.js)
   - [__promises.js__](./promises.js)

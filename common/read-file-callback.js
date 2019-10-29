@@ -1,8 +1,7 @@
 'use strict';
 
-const fs            = require('fs');
-
-const S             = require('sanctuary');
+const fs            = require ('fs');
 
 //  readFile :: String -> ((Error?, String?) -> Undefined) -> Undefined
-module.exports = S.curry3(fs.readFile, S.__, {encoding: 'utf8'});
+module.exports = filename => callback =>
+  fs.readFile (filename, {encoding: 'utf8'}, callback);

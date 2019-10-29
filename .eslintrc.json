@@ -1,0 +1,9 @@
+{
+  "root": true,
+  "extends": ["./node_modules/sanctuary-style/eslint-es6.json"],
+  "parserOptions": {"ecmaVersion": 8},
+  "env": {"node": true},
+  "rules": {
+    "max-len": ["error", {"code": 79, "ignoreComments": true}]
+  }
+}

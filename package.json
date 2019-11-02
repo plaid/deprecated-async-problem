@@ -2,25 +2,25 @@
   "name": "async-problem",
   "private": true,
   "scripts": {
+    "lint": "eslint -- \"**/*.js\"",
     "test": "./test"
   },
   "dependencies": {
-    "async": "2.4.x",
-    "bluebird": "3.5.x",
-    "bluebird-promisell": "0.6.x",
-    "co": "4.6.x",
-    "fluture": "6.2.x",
-    "fluture-sanctuary-types": "1.2.x",
-    "foreign": "1.0.x",
-    "mississippi": "3.0.x",
-    "most": "1.4.x",
-    "righto": "3.0.x",
-    "sanctuary": "0.13.x",
-    "sanctuary-def": "0.12.x",
-    "split2": "3.0.x"
+    "async": "3.1.0",
+    "bluebird": "3.7.1",
+    "bluebird-promisell": "0.7.0",
+    "co": "4.6.0",
+    "fluture": "11.0.3",
+    "fluture-sanctuary-types": "4.1.1",
+    "mississippi": "4.0.0",
+    "most": "1.7.3",
+    "righto": "6.0.0",
+    "sanctuary": "2.0.0",
+    "sanctuary-def": "0.20.0",
+    "split2": "3.1.1"
   },
   "devDependencies": {
-    "eslint": "3.19.x",
-    "sanctuary-style": "0.5.x"
+    "eslint": "5.15.x",
+    "sanctuary-style": "3.0.0"
   }
 }

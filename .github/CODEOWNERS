@@ -1,0 +1,7 @@
+# This is a CODEOWNERS file.
+#
+# Please consult https://help.github.com/articles/about-codeowners/
+# for documentation.
+
+# Plaid codeowners requirements.
+* @plaid/developer-relations
